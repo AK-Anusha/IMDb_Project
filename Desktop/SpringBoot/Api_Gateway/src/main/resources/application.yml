@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/user/**
+        - id: order-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/order/**
+      default-filters:
+        - AddResponseHeader=X-Gateway, SpringCloudGateway
